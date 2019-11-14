@@ -1,0 +1,38 @@
+---
+title: "class-11-14-19"
+author: "Ryan Graff"
+date: "November 14, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(googlesheets4)
+library(tidyverse)
+```
+
+```{r data}
+sheets_deauth()
+x <- read_sheet("1QA_Xv9tAbKhwFdQpnVa2hTjhEdg5zAl4WY5EVanWSo0")
+
+x
+```
+
+
+```{r}
+ model <- lm(data = x, dvote ~ dem_adv)
+
+model
+```
+
+```{r}
+ggplot(x, aes(x=female, y = dvote)) + geom_point(height = 0.2) + geom_smooth(method = "lm", se = FALSE)
+```
+
+
+```{r}
+ modelf <- glm(data = x, dvote ~ female)
+
+modelf
+```
+
