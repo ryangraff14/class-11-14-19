@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(googlesheets4)
 library(tidyverse)
+library(broom)
 ```
 
 ```{r data}
@@ -20,9 +21,12 @@ x
 
 
 ```{r}
- model <- lm(data = x, dvote ~ dem_adv)
+# family binomial creates logistical regression
+ model <- lm(data = x, dvote ~ dem_adv, family = binomial)
 
 model
+
+model %>% tidy()
 ```
 
 ```{r}
@@ -34,5 +38,8 @@ ggplot(x, aes(x=female, y = dvote)) + geom_point(height = 0.2) + geom_smooth(met
  modelf <- glm(data = x, dvote ~ female)
 
 modelf
+
+# logistical regression
+ggplot(x, aes(x=female, y = dvote)) + geom_point(height = 0.2) + geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE)
 ```
 
